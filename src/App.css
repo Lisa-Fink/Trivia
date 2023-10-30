@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Lunasima:wght@400;700&display=swap");
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Josefin Sans", sans-serif;
+  /* font-family: "Lunasima", sans-serif; */
+  --light: #ffffff;
+  --medium: #333333;
+  --dark: #000000;
+  max-width: 1280px;
+  color: var(--dark);
+}
+
+body {
+  background-color: var(--light);
+  box-sizing: border-box;
+}
+
+header {
+  box-sizing: border-box;
+  background-color: var(--medium);
+  width: 100%;
+  padding: 25px 25px 5px 25px;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+}
+
+button {
+  box-sizing: border-box;
+  background-color: var(--medium);
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav {
+  gap: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--light);
+}
+a:hover {
+  color: var(--dark);
+  background-color: var(--light);
+}
+
+.large-text {
+  font-size: 64px;
+}
+
+.medium-text {
+  font-size: 44px;
+}
+
+.regular-text {
+  font-size: 36px;
+}
+
+.light-text {
+  color: var(--light);
+}
+
+.dark-text {
+  color: var(--dark);
+}
+
+.wide-btn {
+  width: 520px;
+  height: 60px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.lower {
+  margin-bottom: -5px;
+}
