@@ -48,7 +48,8 @@ button {
 }
 
 .wide-btn {
-  width: 520px;
+  height: 80px;
+  width: 800px;
 }
 
 .btn-container {
@@ -62,7 +63,8 @@ button:hover {
   color: var(--dark);
 }
 
-button:active {
+button:active,
+.selected-btn {
   background-color: var(--light);
   color: var(--dark);
 }
