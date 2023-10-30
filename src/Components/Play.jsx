@@ -5,15 +5,14 @@ import Category from "./Category";
 function Play() {
   const [gameState, setGameState] = useState("start");
 
-  return (
+  return gameState == "start" ? (
+    <Start
+      startGame={() => {
+        setGameState("category");
+      }}
+    />
+  ) : (
     <Category />
-    // gameState == "start" && (
-    //   <Start
-    //     startGame={() => {
-    //       setGameState("category");
-    //     }}
-    //   />
-    // )
   );
 }
 
