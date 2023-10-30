@@ -6,6 +6,7 @@
   font-family: "Josefin Sans", sans-serif;
   /* font-family: "Lunasima", sans-serif; */
   --light: #ffffff;
+  --medium-light: #b1b1b1;
   --medium: #333333;
   --dark: #000000;
   max-width: 1280px;
@@ -28,18 +29,39 @@ header {
 }
 
 button {
+  font-family: "Josefin Sans", sans-serif;
   box-sizing: border-box;
   background-color: var(--medium);
   border: none;
   outline: none;
   border-radius: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+  width: 400px;
+  height: 100px;
+  border: 2px var(--medium) solid;
+}
+
+button:hover {
+  background-color: var(--medium-light);
+  color: var(--dark);
+}
+
+button:active {
+  background-color: var(--light);
+  color: var(--dark);
 }
 
 nav {
   gap: 25px;
+}
+
+main {
+  padding: 50px 150px;
+  line-height: 1;
 }
 
 a {
@@ -73,12 +95,19 @@ a:hover {
 
 .wide-btn {
   width: 520px;
-  height: 60px;
 }
 
 .flex-row {
   display: flex;
   flex-direction: row;
+}
+
+.center-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 55px;
 }
 
 .lower {
