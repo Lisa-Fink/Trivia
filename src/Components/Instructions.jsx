@@ -2,7 +2,7 @@ import React from "react";
 
 function Instructions() {
   return (
-    <div className="regular-text">
+    <div className="regular-text instructions">
       <h1>Instructions</h1>
       <div>
         With just a few simple steps, you'll be on your way to becoming a trivia
