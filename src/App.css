@@ -26,10 +26,14 @@ p {
   text-align: center;
   font-family: "Josefin Sans", sans-serif;
   /* font-family: "Lunasima", sans-serif; */
+
   --light: #ffffff;
   --medium-light: #b1b1b1;
   --medium: #333333;
   --dark: #000000;
+
+  --correct: #00ff57;
+  --incorrect: #ff0000;
   max-width: 1280px;
   color: var(--dark);
 }
@@ -76,6 +80,7 @@ button {
 }
 
 .btn-container {
+  margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -90,6 +95,22 @@ button:active,
 .selected-btn {
   background-color: var(--light);
   color: var(--dark);
+}
+
+button:disabled {
+  pointer-events: none;
+}
+
+.correct {
+  background-color: var(--light);
+  color: var(--dark);
+  border: 4px solid var(--correct);
+}
+
+.incorrect {
+  color: var(--light);
+  background-color: var(--medium);
+  border: 4px solid var(--incorrect);
 }
 
 main {
@@ -128,7 +149,7 @@ h2 {
 h3 {
   font-size: 36px;
 }
-h3 {
+.instructions h3 {
   font-weight: bold;
   display: inline;
 }
@@ -150,9 +171,12 @@ h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 65px;
+  gap: 35px;
 }
 
 .lower {
   margin-bottom: -5px;
+}
+.answer-text {
+  font-weight: bold;
 }
