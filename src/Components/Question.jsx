@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useQuestionData from "../Hooks/useQuestionData";
 import useAnswerVerification from "../Hooks/useAnswerVerification";
 
-function Question() {
+function Question({ category, goToSelectCategory, goToStart }) {
   const {
     isCorrect,
     correctAnswer,
@@ -20,13 +20,18 @@ function Question() {
     verifyAnswer(question.questionID, answer);
   }
 
+  function getNextQuestion() {
+    fetchQuestion(category);
+  }
+
   useEffect(() => {
     resetAnswerState();
+    setAnswer(null);
     setIsAnswering(true);
   }, [question]);
 
   useEffect(() => {
-    fetchQuestion();
+    getNextQuestion();
   }, []);
 
   const answerButtons =
@@ -58,15 +63,23 @@ function Question() {
     </button>
   );
   const correctAnswerButtons = (
-    <div>
-      <button className="wide-btn">Continue</button>
-      <button className="wide-btn">End Game</button>
+    <div className="question-button">
+      <button className="wide-btn" onClick={getNextQuestion}>
+        Continue
+      </button>
+      <button className="wide-btn" onClick={goToStart}>
+        End Game
+      </button>
     </div>
   );
   const incorrectAnswerButtons = (
-    <div>
-      <button className="wide-btn">Retry Current Category</button>
-      <button className="wide-btn">New Category</button>
+    <div className="question-button">
+      <button className="wide-btn" onClick={getNextQuestion}>
+        Retry Current Category
+      </button>
+      <button className="wide-btn" onClick={goToSelectCategory}>
+        New Category
+      </button>
     </div>
   );
 
