@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Lunasima:wght@400;700&display=swap");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
 
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
 #root {
   margin: 0 auto;
   text-align: center;
@@ -15,24 +36,26 @@
 
 body {
   background-color: var(--light);
-  box-sizing: border-box;
 }
 
 header {
-  box-sizing: border-box;
   background-color: var(--medium);
   width: 100%;
   padding: 25px 25px 5px 25px;
   align-items: flex-end;
   justify-content: space-between;
   height: 150px;
+  margin-bottom: 20px;
+}
+
+nav {
+  gap: 25px;
 }
 
 button {
   font-family: "Josefin Sans", sans-serif;
   color: var(--light);
   font-size: 36px;
-  box-sizing: border-box;
   background-color: var(--medium);
   border: none;
   outline: none;
@@ -69,10 +92,6 @@ button:active,
   color: var(--dark);
 }
 
-nav {
-  gap: 25px;
-}
-
 main {
   padding: 50px 150px;
   line-height: 1;
@@ -87,18 +106,32 @@ a:hover {
   background-color: var(--light);
 }
 
-.large-text {
+ul {
+  text-align: left;
+}
+
+li {
+  margin: 40px 0;
+}
+
+.large-text,
+h1 {
   font-size: 64px;
 }
 
-.medium-text {
+.medium-text,
+h2 {
   font-size: 44px;
 }
 
-.regular-text {
+.regular-text,
+h3 {
   font-size: 36px;
 }
-
+h3 {
+  font-weight: bold;
+  display: inline;
+}
 .light-text {
   color: var(--light);
 }
