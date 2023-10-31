@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function Category({ category, setCategory, submitCategory }) {
   const categories = [
@@ -9,6 +9,10 @@ function Category({ category, setCategory, submitCategory }) {
     "Science/Tech",
     "Random",
   ];
+
+  useEffect(() => {
+    setCategory(null);
+  }, []);
 
   function handleSubmitCategory() {
     if (category == null) {
@@ -29,7 +33,7 @@ function Category({ category, setCategory, submitCategory }) {
   ));
   return (
     <div className="center-col">
-      <div className="large-text">Select a category to get started</div>
+      <h1>Select a category to get started</h1>
       <div className="btn-container">{categoryButtons}</div>
       <div>
         <button className="wide-btn" onClick={handleSubmitCategory}>
