@@ -5,7 +5,10 @@ import Question from "./Question";
 
 function Play() {
   const [gameState, setGameState] = useState("start");
+
+  // game play states
   const [category, setCategory] = useState(null);
+  const [score, setScore] = useState(0);
 
   return gameState == "category" ? (
     <Category
@@ -16,7 +19,10 @@ function Play() {
       }}
     />
   ) : gameState == "question" ? (
-    <Question />
+    <Question
+      goToSelectCategory={() => setGameState("category")}
+      goToStart={() => setGameState("start")}
+    />
   ) : (
     <Start
       startGame={() => {
