@@ -11,10 +11,6 @@ function Category({ category, setCategory, submitCategory, soundEnabled }) {
     "Random",
   ];
 
-  useEffect(() => {
-    setCategory(null);
-  }, []);
-
   function handleSubmitCategory() {
     if (category == null) {
       // TODO: error message

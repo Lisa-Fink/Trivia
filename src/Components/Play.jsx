@@ -5,22 +5,21 @@ import Question from "./Question";
 import Menu from "./Menu";
 import ConfirmEndModal from "./ConfirmEndModal";
 
-const CORRECT_ANSWER_POINTS = 100;
-
-function Play() {
-  const [gameState, setGameState] = useState("start");
-  const [sound, toggleSound] = useSoundSetting();
-
-  // game play states
-  const [category, setCategory] = useState(null);
-  const [score, resetScore, increaseScore] = useScore();
-  const [showConfirm, setShowConfirm] = useState(null);
-
-  useEffect(() => {
-    if (gameState === "question") resetScore();
-    if (gameState === "restart") setGameState("question");
-  }, [gameState]);
-
+function Play({
+  gameState,
+  setGameState,
+  sound,
+  toggleSound,
+  category,
+  setCategory,
+  score,
+  resetScore,
+  increaseScore,
+  showConfirm,
+  setShowConfirm,
+  isNewGame,
+  questionProps,
+}) {
   const main =
     gameState === "category" ? (
       <Category
@@ -33,13 +32,18 @@ function Play() {
       />
     ) : gameState === "question" ? (
       <Question
-        goToSelectCategory={() => setGameState("category")}
+        goToSelectCategory={() => {
+          setGameState("category");
+          setCategory(null);
+        }}
         goToStart={() => setGameState("start")}
         resetScore={resetScore}
         increaseScore={increaseScore}
         setShowConfirm={setShowConfirm}
         gameState={gameState}
         soundEnabled={sound}
+        isNewGame={isNewGame}
+        {...questionProps}
       />
     ) : (
       <Start
@@ -70,18 +74,6 @@ function Play() {
       )}
     </>
   );
-}
-
-function useSoundSetting() {
-  const [sound, setSound] = useState(true);
-  return [sound, () => setSound(!sound)];
-}
-
-function useScore() {
-  const [score, setScore] = useState(0);
-  const resetScore = () => setScore(0);
-  const increaseScore = () => setScore(score + CORRECT_ANSWER_POINTS);
-  return [score, resetScore, increaseScore];
 }
 
 export default Play;

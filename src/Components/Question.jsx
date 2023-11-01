@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import useQuestionData from "../Hooks/useQuestionData";
-import useAnswerVerification from "../Hooks/useAnswerVerification";
+import React, { useEffect } from "react";
 import SoundButton from "./SoundButton";
 import useSound from "use-sound";
 import correctSfx from "../assets/fanfare.mp3";
@@ -13,18 +11,21 @@ function Question({
   increaseScore,
   setShowConfirm,
   soundEnabled,
+  isNewGame,
+  isCorrect,
+  correctAnswer,
+  answerLoading,
+  verifyAnswer,
+  resetAnswerState,
+  answer,
+  setAnswer,
+  isAnswering,
+  setIsAnswering,
+  question,
+  questionLoading,
+  error,
+  fetchQuestion,
 }) {
-  const {
-    isCorrect,
-    correctAnswer,
-    answerLoading,
-    verifyAnswer,
-    resetAnswerState,
-  } = useAnswerVerification();
-  const [answer, setAnswer] = useState(null);
-  const [isAnswering, setIsAnswering] = useState(true);
-  const { question, questionLoading, error, fetchQuestion } = useQuestionData();
-
   const [playCorrect] = useSound(correctSfx);
   const [playIncorrect] = useSound(incorrectSfx);
 
@@ -39,14 +40,11 @@ function Question({
   }
 
   useEffect(() => {
-    resetAnswerState();
-    setAnswer(null);
-    setIsAnswering(true);
-  }, [question]);
-
-  useEffect(() => {
-    getNextQuestion();
-  }, []);
+    if (isNewGame.current) {
+      getNextQuestion();
+      isNewGame.current = false;
+    }
+  }, [isNewGame]);
 
   useEffect(() => {
     if (!isAnswering) {
