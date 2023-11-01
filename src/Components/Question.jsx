@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
 import SoundButton from "./SoundButton";
-import useSound from "use-sound";
-import correctSfx from "../assets/fanfare.mp3";
-import incorrectSfx from "../assets/dun-dun-dun.mp3";
 
 function Question({
   category,
   goToSelectCategory,
-  resetScore,
-  increaseScore,
   setShowConfirm,
   soundEnabled,
   isNewGame,
@@ -25,9 +20,6 @@ function Question({
   error,
   fetchQuestion,
 }) {
-  const [playCorrect] = useSound(correctSfx, { soundEnabled });
-  const [playIncorrect] = useSound(incorrectSfx, { soundEnabled });
-
   function handleSubmit() {
     if (!isAnswering) return;
     setIsAnswering(false);
@@ -44,18 +36,6 @@ function Question({
       isNewGame.current = false;
     }
   }, [isNewGame]);
-
-  useEffect(() => {
-    if (!isAnswering) {
-      if (isCorrect) {
-        increaseScore();
-        playCorrect();
-      } else {
-        resetScore();
-        playIncorrect();
-      }
-    }
-  }, [isCorrect]);
 
   const answerButtons =
     question &&

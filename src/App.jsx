@@ -8,6 +8,10 @@ import Instructions from "./Components/Instructions";
 import useQuestionData from "./Hooks/useQuestionData";
 import useAnswerVerification from "./Hooks/useAnswerVerification";
 
+import useSound from "use-sound";
+import correctSfx from "./assets/fanfare.mp3";
+import incorrectSfx from "./assets/dun-dun-dun.mp3";
+
 const CORRECT_ANSWER_POINTS = 100;
 
 function App() {
@@ -32,6 +36,9 @@ function App() {
   const [isAnswering, setIsAnswering] = useState(true);
   const { question, questionLoading, error, fetchQuestion } = useQuestionData();
 
+  const [playCorrect] = useSound(correctSfx, { soundEnabled: sound });
+  const [playIncorrect] = useSound(incorrectSfx, { soundEnabled: sound });
+
   useEffect(() => {
     if (gameState === "question") {
       isNewGame.current = true;
@@ -46,6 +53,19 @@ function App() {
     setAnswer(null);
     setIsAnswering(true);
   }, [question]);
+
+  // update score and play sound when answer is verification completes
+  useEffect(() => {
+    if (!isAnswering) {
+      if (isCorrect) {
+        increaseScore();
+        playCorrect();
+      } else {
+        resetScore();
+        playIncorrect();
+      }
+    }
+  }, [isCorrect]);
 
   const questionProps = {
     isCorrect,
@@ -70,8 +90,6 @@ function App() {
     category,
     setCategory,
     score,
-    resetScore,
-    increaseScore,
     showConfirm,
     setShowConfirm,
     isNewGame,

@@ -13,8 +13,6 @@ function Play({
   category,
   setCategory,
   score,
-  resetScore,
-  increaseScore,
   showConfirm,
   setShowConfirm,
   isNewGame,
@@ -37,8 +35,6 @@ function Play({
           setCategory(null);
         }}
         goToStart={() => setGameState("start")}
-        resetScore={resetScore}
-        increaseScore={increaseScore}
         setShowConfirm={setShowConfirm}
         gameState={gameState}
         soundEnabled={sound}
