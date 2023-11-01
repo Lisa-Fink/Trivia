@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import SoundButton from "./SoundButton";
 
-function Category({ category, setCategory, submitCategory }) {
+function Category({ category, setCategory, submitCategory, soundEnabled }) {
   const categories = [
     "Geography",
     "Movies",
@@ -23,22 +24,27 @@ function Category({ category, setCategory, submitCategory }) {
   }
 
   const categoryButtons = categories.map((curCategory, index) => (
-    <button
+    <SoundButton
+      soundEnabled={soundEnabled}
       className={category == curCategory ? "selected-btn" : ""}
       key={index}
       onClick={() => setCategory(curCategory)}
     >
       {curCategory}
-    </button>
+    </SoundButton>
   ));
   return (
     <div className="center-col">
       <h1>Select a category to get started</h1>
       <div className="btn-container">{categoryButtons}</div>
       <div>
-        <button className="wide-btn" onClick={handleSubmitCategory}>
+        <SoundButton
+          soundEnabled={soundEnabled}
+          className="wide-btn"
+          onClick={handleSubmitCategory}
+        >
           Submit
-        </button>
+        </SoundButton>
       </div>
     </div>
   );

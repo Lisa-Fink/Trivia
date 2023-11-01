@@ -1,4 +1,5 @@
 import React from "react";
+import SoundButton from "./SoundButton";
 
 function ConfirmEndModal({ endGame, cancel, setGameState }) {
   function handleConfirm() {
@@ -9,8 +10,10 @@ function ConfirmEndModal({ endGame, cancel, setGameState }) {
     <div className="modal-container">
       <div className="modal-body center-col">
         <h3>Are You Sure You Want to Leave The Current Game?</h3>
-        <button onClick={handleConfirm}>Yes, Leave Current Game</button>
-        <button onClick={cancel}>No, Cancel</button>
+        <SoundButton onClick={handleConfirm}>
+          Yes, Leave Current Game
+        </SoundButton>
+        <SoundButton onClick={cancel}>No, Cancel</SoundButton>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const CORRECT_ANSWER_POINTS = 100;
 
 function Play() {
   const [gameState, setGameState] = useState("start");
-  const [sound, toggleSound] = useSound();
+  const [sound, toggleSound] = useSoundSetting();
 
   // game play states
   const [category, setCategory] = useState(null);
@@ -29,6 +29,7 @@ function Play() {
         submitCategory={() => {
           setGameState("question");
         }}
+        soundEnabled={sound}
       />
     ) : gameState === "question" ? (
       <Question
@@ -38,12 +39,14 @@ function Play() {
         increaseScore={increaseScore}
         setShowConfirm={setShowConfirm}
         gameState={gameState}
+        soundEnabled={sound}
       />
     ) : (
       <Start
         startGame={() => {
           setGameState("category");
         }}
+        soundEnabled={sound}
       />
     );
 
@@ -69,7 +72,7 @@ function Play() {
   );
 }
 
-function useSound() {
+function useSoundSetting() {
   const [sound, setSound] = useState(true);
   return [sound, () => setSound(!sound)];
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
+import SoundButton from "./SoundButton";
 
 function Menu({
   sound,
@@ -30,18 +31,18 @@ function Menu({
       <div className="menu-row flex-row">
         {gameState !== "start" && (
           <>
-            <button onClick={handleNewGameClick} className="small-btn">
+            <SoundButton onClick={handleNewGameClick} className="small-btn">
               New Game
-            </button>
-            <button onClick={handleRestartClick} className="small-btn">
+            </SoundButton>
+            <SoundButton onClick={handleRestartClick} className="small-btn">
               Restart
-            </button>
+            </SoundButton>
+            {sound ? (
+              <FaVolumeHigh className="regular-text" onClick={toggleSound} />
+            ) : (
+              <FaVolumeXmark className="regular-text" onClick={toggleSound} />
+            )}
           </>
-        )}
-        {sound ? (
-          <FaVolumeHigh className="regular-text" onClick={toggleSound} />
-        ) : (
-          <FaVolumeXmark className="regular-text" onClick={toggleSound} />
         )}
       </div>
     </div>

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useQuestionData from "../Hooks/useQuestionData";
 import useAnswerVerification from "../Hooks/useAnswerVerification";
+import SoundButton from "./SoundButton";
+import useSound from "use-sound";
+import correctSfx from "../assets/fanfare.mp3";
+import incorrectSfx from "../assets/dun-dun-dun.mp3";
 
 function Question({
   category,
@@ -8,6 +12,7 @@ function Question({
   resetScore,
   increaseScore,
   setShowConfirm,
+  soundEnabled,
 }) {
   const {
     isCorrect,
@@ -19,6 +24,9 @@ function Question({
   const [answer, setAnswer] = useState(null);
   const [isAnswering, setIsAnswering] = useState(true);
   const { question, questionLoading, error, fetchQuestion } = useQuestionData();
+
+  const [playCorrect] = useSound(correctSfx);
+  const [playIncorrect] = useSound(incorrectSfx);
 
   function handleSubmit() {
     if (!isAnswering) return;
@@ -42,8 +50,13 @@ function Question({
 
   useEffect(() => {
     if (!isAnswering) {
-      if (isCorrect) increaseScore();
-      else resetScore();
+      if (isCorrect) {
+        increaseScore();
+        playCorrect();
+      } else {
+        resetScore();
+        playIncorrect();
+      }
     }
   }, [isCorrect]);
 
@@ -51,7 +64,7 @@ function Question({
     question &&
     question.answers &&
     question.answers.map((curAnswer, index) => (
-      <button
+      <SoundButton
         disabled={!isAnswering}
         className={
           (answer == curAnswer ? "selected-btn" : "") +
@@ -65,39 +78,58 @@ function Question({
         }
         key={index}
         onClick={() => setAnswer(curAnswer)}
+        soundEnabled={soundEnabled}
       >
         {curAnswer}
-      </button>
+      </SoundButton>
     ));
 
   const submitButton = (
-    <button className="wide-btn" disabled={!isAnswering} onClick={handleSubmit}>
+    <SoundButton
+      className="wide-btn"
+      disabled={!isAnswering}
+      onClick={handleSubmit}
+      soundEnabled={soundEnabled}
+    >
       Submit
-    </button>
+    </SoundButton>
   );
   const correctAnswerButtons = (
     <div className="question-button">
-      <button className="wide-btn" onClick={getNextQuestion}>
+      <SoundButton
+        className="wide-btn"
+        onClick={getNextQuestion}
+        soundEnabled={soundEnabled}
+      >
         Continue
-      </button>
-      <button
+      </SoundButton>
+      <SoundButton
+        soundEnabled={soundEnabled}
         className="wide-btn"
         onClick={() => {
           setShowConfirm("start");
         }}
       >
         End Game
-      </button>
+      </SoundButton>
     </div>
   );
   const incorrectAnswerButtons = (
     <div className="question-button">
-      <button className="wide-btn" onClick={getNextQuestion}>
+      <SoundButton
+        soundEnabled={soundEnabled}
+        className="wide-btn"
+        onClick={getNextQuestion}
+      >
         Retry Current Category
-      </button>
-      <button className="wide-btn" onClick={goToSelectCategory}>
+      </SoundButton>
+      <SoundButton
+        soundEnabled={soundEnabled}
+        className="wide-btn"
+        onClick={goToSelectCategory}
+      >
         New Category
-      </button>
+      </SoundButton>
     </div>
   );
 
