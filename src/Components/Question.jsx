@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import useQuestionData from "../Hooks/useQuestionData";
 import useAnswerVerification from "../Hooks/useAnswerVerification";
 
-function Question({ category, goToSelectCategory, goToStart }) {
+function Question({
+  category,
+  goToSelectCategory,
+  goToStart,
+  resetScore,
+  increaseScore,
+  setShowConfirm,
+}) {
   const {
     isCorrect,
     correctAnswer,
@@ -33,6 +40,13 @@ function Question({ category, goToSelectCategory, goToStart }) {
   useEffect(() => {
     getNextQuestion();
   }, []);
+
+  useEffect(() => {
+    if (!isAnswering) {
+      if (isCorrect) increaseScore();
+      else resetScore();
+    }
+  }, [isCorrect]);
 
   const answerButtons =
     question &&
@@ -67,7 +81,12 @@ function Question({ category, goToSelectCategory, goToStart }) {
       <button className="wide-btn" onClick={getNextQuestion}>
         Continue
       </button>
-      <button className="wide-btn" onClick={goToStart}>
+      <button
+        className="wide-btn"
+        onClick={() => {
+          setShowConfirm("start");
+        }}
+      >
         End Game
       </button>
     </div>
