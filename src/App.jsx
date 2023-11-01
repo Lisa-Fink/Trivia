@@ -79,7 +79,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/Trivia">
       <Header />
       <main>
         <Routes>
