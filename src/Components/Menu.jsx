@@ -28,12 +28,16 @@ function Menu({
         )}
       </div>
       <div className="menu-row flex-row">
-        <button onClick={handleNewGameClick} className="small-btn">
-          New Game
-        </button>
-        <button onClick={handleRestartClick} className="small-btn">
-          Restart
-        </button>
+        {gameState !== "start" && (
+          <>
+            <button onClick={handleNewGameClick} className="small-btn">
+              New Game
+            </button>
+            <button onClick={handleRestartClick} className="small-btn">
+              Restart
+            </button>
+          </>
+        )}
         {sound ? (
           <FaVolumeHigh className="regular-text" onClick={toggleSound} />
         ) : (
