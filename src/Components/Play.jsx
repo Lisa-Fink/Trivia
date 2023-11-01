@@ -70,6 +70,7 @@ function Play({
           cancel={() => setShowConfirm(null)}
           endGame={showConfirm}
           setGameState={setGameState}
+          soundEnabled={sound}
         />
       )}
     </>
