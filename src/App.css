@@ -151,8 +151,7 @@ a {
   color: var(--light);
 }
 a:hover {
-  color: var(--dark);
-  background-color: var(--light);
+  color: var(--medium-light);
 }
 
 ul {
