@@ -16,7 +16,6 @@ function Question({
   correctAnswer,
   answerLoading,
   verifyAnswer,
-  resetAnswerState,
   answer,
   setAnswer,
   isAnswering,
@@ -26,8 +25,8 @@ function Question({
   error,
   fetchQuestion,
 }) {
-  const [playCorrect] = useSound(correctSfx);
-  const [playIncorrect] = useSound(incorrectSfx);
+  const [playCorrect] = useSound(correctSfx, { soundEnabled });
+  const [playIncorrect] = useSound(incorrectSfx, { soundEnabled });
 
   function handleSubmit() {
     if (!isAnswering) return;
