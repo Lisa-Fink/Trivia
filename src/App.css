@@ -91,7 +91,10 @@ button {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 }
-
+button:focus {
+  outline: var(--dark) solid 1px;
+  border: var(--light) solid 1px;
+}
 button:hover {
   background-color: var(--medium-light);
   color: var(--dark);
@@ -102,6 +105,9 @@ button:active,
   background-color: var(--light);
   color: var(--dark);
 }
+.selected-btn:focus {
+  border: var(--medium) solid 2px;
+}
 
 button:disabled {
   pointer-events: none;
@@ -111,6 +117,15 @@ button:disabled {
   margin-bottom: 15px;
 }
 
+.toggle-sound-btn {
+  background-color: inherit;
+  width: auto;
+  height: auto;
+  border: none;
+}
+.toggle-sound-btn:hover {
+  background-color: inherit;
+}
 .correct {
   background-color: var(--light);
   color: var(--dark);
