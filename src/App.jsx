@@ -52,7 +52,6 @@ function App() {
     correctAnswer,
     answerLoading,
     verifyAnswer,
-    resetAnswerState,
     answer,
     setAnswer,
     isAnswering,
