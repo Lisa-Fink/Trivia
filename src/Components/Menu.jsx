@@ -31,10 +31,18 @@ function Menu({
       <div className="menu-row flex-row">
         {gameState !== "start" && (
           <>
-            <SoundButton onClick={handleNewGameClick} className="small-btn">
+            <SoundButton
+              soundEnabled={sound}
+              onClick={handleNewGameClick}
+              className="small-btn"
+            >
               New Game
             </SoundButton>
-            <SoundButton onClick={handleRestartClick} className="small-btn">
+            <SoundButton
+              soundEnabled={sound}
+              onClick={handleRestartClick}
+              className="small-btn"
+            >
               Restart
             </SoundButton>
           </>
