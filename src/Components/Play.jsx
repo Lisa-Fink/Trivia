@@ -18,6 +18,7 @@ function Play() {
 
   useEffect(() => {
     if (gameState === "question") resetScore();
+    if (gameState === "restart") setGameState("question");
   }, [gameState]);
 
   const main =
@@ -36,6 +37,7 @@ function Play() {
         resetScore={resetScore}
         increaseScore={increaseScore}
         setShowConfirm={setShowConfirm}
+        gameState={gameState}
       />
     ) : (
       <Start
@@ -53,6 +55,7 @@ function Play() {
         sound={sound}
         toggleSound={toggleSound}
         gameState={gameState}
+        setShowConfirm={setShowConfirm}
       />
       {main}
       {showConfirm && (

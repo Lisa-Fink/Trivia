@@ -5,7 +5,6 @@ import useAnswerVerification from "../Hooks/useAnswerVerification";
 function Question({
   category,
   goToSelectCategory,
-  goToStart,
   resetScore,
   increaseScore,
   setShowConfirm,
