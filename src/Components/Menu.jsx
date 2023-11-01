@@ -37,13 +37,19 @@ function Menu({
             <SoundButton onClick={handleRestartClick} className="small-btn">
               Restart
             </SoundButton>
-            {sound ? (
-              <FaVolumeHigh className="regular-text" onClick={toggleSound} />
-            ) : (
-              <FaVolumeXmark className="regular-text" onClick={toggleSound} />
-            )}
           </>
         )}
+        <button
+          className="toggle-sound-btn"
+          aria-label={sound ? "Mute Sound" : "Unmute Sound"}
+          onClick={toggleSound}
+        >
+          {sound ? (
+            <FaVolumeHigh className="regular-text" />
+          ) : (
+            <FaVolumeXmark className="regular-text" />
+          )}
+        </button>
       </div>
     </div>
   );
