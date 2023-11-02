@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Start from "./Start";
 import Category from "./Category";
 import Question from "./Question";
@@ -15,7 +15,6 @@ function Play({
   score,
   showConfirm,
   setShowConfirm,
-  isNewGame,
   questionProps,
 }) {
   const main =
@@ -34,11 +33,8 @@ function Play({
           setGameState("category");
           setCategory(null);
         }}
-        goToStart={() => setGameState("start")}
         setShowConfirm={setShowConfirm}
-        gameState={gameState}
         soundEnabled={sound}
-        isNewGame={isNewGame}
         {...questionProps}
       />
     ) : (

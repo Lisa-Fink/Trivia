@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SoundButton from "./SoundButton";
 
 function Question({
-  category,
   goToSelectCategory,
   setShowConfirm,
   soundEnabled,
-  isNewGame,
   isCorrect,
   correctAnswer,
   answerLoading,
@@ -18,24 +16,13 @@ function Question({
   question,
   questionLoading,
   error,
-  fetchQuestion,
+  getNextQuestion,
 }) {
   function handleSubmit() {
     if (!isAnswering) return;
     setIsAnswering(false);
     verifyAnswer(question.questionID, answer);
   }
-
-  function getNextQuestion() {
-    fetchQuestion(category);
-  }
-
-  useEffect(() => {
-    if (isNewGame.current) {
-      getNextQuestion();
-      isNewGame.current = false;
-    }
-  }, [isNewGame]);
 
   const answerButtons =
     question &&

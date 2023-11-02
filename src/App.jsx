@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Play from "./Components/Play";
@@ -22,7 +22,6 @@ function App() {
   const [category, setCategory] = useState(null);
   const [score, resetScore, increaseScore] = useScore();
   const [showConfirm, setShowConfirm] = useState(null);
-  const isNewGame = useRef(true);
 
   // question states
   const {
@@ -39,12 +38,18 @@ function App() {
   const [playCorrect] = useSound(correctSfx, { soundEnabled: sound });
   const [playIncorrect] = useSound(incorrectSfx, { soundEnabled: sound });
 
+  function getNextQuestion() {
+    fetchQuestion(category);
+  }
+
   useEffect(() => {
     if (gameState === "question") {
-      isNewGame.current = true;
       resetScore();
+      getNextQuestion();
     }
-    if (gameState === "restart") setGameState("question");
+    if (gameState === "restart") {
+      setGameState("question");
+    }
     if (gameState === "start") setCategory(null);
   }, [gameState]);
 
@@ -79,7 +84,7 @@ function App() {
     question,
     questionLoading,
     error,
-    fetchQuestion,
+    getNextQuestion,
   };
 
   const playProps = {
@@ -92,7 +97,6 @@ function App() {
     score,
     showConfirm,
     setShowConfirm,
-    isNewGame,
     questionProps,
   };
 
