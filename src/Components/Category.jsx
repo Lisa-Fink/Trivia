@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SoundButton from "./SoundButton";
 
 function Category({ category, setCategory, submitCategory, soundEnabled }) {
@@ -38,6 +38,7 @@ function Category({ category, setCategory, submitCategory, soundEnabled }) {
           soundEnabled={soundEnabled}
           className="wide-btn"
           onClick={handleSubmitCategory}
+          testID="submit-btn"
         >
           Submit
         </SoundButton>

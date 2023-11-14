@@ -9,6 +9,7 @@ function Start({ startGame, soundEnabled }) {
       <div>Press START to begin!</div>
 
       <SoundButton
+        testID="start-button"
         soundEnabled={soundEnabled}
         onClick={startGame}
         className="light-text medium-text"
