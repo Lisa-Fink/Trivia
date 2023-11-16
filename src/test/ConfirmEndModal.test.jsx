@@ -7,8 +7,8 @@ describe("Confirm End Modal test", () => {
     render(<ConfirmEndModal />);
     const confirmBtn = screen.queryByTestId("confirm");
     const cancelBtn = screen.queryByTestId("cancel");
-    expect(confirmBtn).to.exist;
-    expect(cancelBtn).to.exist;
+    expect(confirmBtn).not.toBeNull();
+    expect(cancelBtn).not.toBeNull();
   });
   test("Should trigger confirm on button click by calling setGameState with \
         endGame as arg", () => {

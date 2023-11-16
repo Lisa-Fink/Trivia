@@ -7,7 +7,7 @@ describe("Start test", () => {
   test("Should have start button", () => {
     render(<Start />);
     const startButton = screen.queryByTestId("start-button");
-    expect(startButton).to.exist;
+    expect(startButton).not.toBeNull();
   });
   test("Should trigger startGame function on start button click", () => {
     const startGameMock = vi.fn();

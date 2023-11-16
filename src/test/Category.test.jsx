@@ -33,7 +33,7 @@ describe("Category submit test", () => {
   test("Should have submit button", () => {
     render(<Category />);
     const submitButton = screen.queryByTestId("submit-btn");
-    expect(submitButton).to.exist;
+    expect(submitButton).not.toBeNull();
   });
   test("Clicking submit button with a category selected should call submit fn", () => {
     const submitCategoryMock = vi.fn();
