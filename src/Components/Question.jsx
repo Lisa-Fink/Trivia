@@ -121,20 +121,14 @@ function Question({
     </>
   );
 
-  if (questionLoading) {
-    return <h2>Loading Question...</h2>;
-  }
-
-  if (error) {
-    return <h2>Error: {error.message}, try again...</h2>;
-  }
-
-  if (!question) {
-    return <h2>No question available, try again...</h2>;
-  }
-
-  return (
-    <div className="question center-col">
+  const mainArea = questionLoading ? (
+    <h2>Loading Question...</h2>
+  ) : error ? (
+    <h2>Error: {error.message}, try again...</h2>
+  ) : !question ? (
+    <h2>No question available, try again...</h2>
+  ) : (
+    <>
       <h2>{question.question}</h2>
       <div>
         <h3>{answerText}</h3>
@@ -142,6 +136,12 @@ function Question({
 
       <div className="btn-container">{answerButtons}</div>
       {bottomButtons}
+    </>
+  );
+
+  return (
+    <div className="question center-col" data-testid="question-component">
+      {mainArea}
     </div>
   );
 }

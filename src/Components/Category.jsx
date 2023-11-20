@@ -30,7 +30,7 @@ function Category({ category, setCategory, submitCategory, soundEnabled }) {
     </SoundButton>
   ));
   return (
-    <div className="center-col">
+    <div className="center-col" data-testid="category-component">
       <h1>Select a category to get started</h1>
       <div className="btn-container">{categoryButtons}</div>
       <div>

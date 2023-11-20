@@ -19,7 +19,7 @@ function Menu({
   }
 
   return (
-    <div className="menu flex-row">
+    <div className="menu flex-row" data-testid="menu-component">
       <div className="menu-row flex-row">
         {gameState === "question" && (
           <>

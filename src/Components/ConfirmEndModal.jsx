@@ -7,7 +7,7 @@ function ConfirmEndModal({ endGame, cancel, setGameState, soundEnabled }) {
     cancel();
   }
   return (
-    <div className="modal-container">
+    <div className="modal-container" data-testid="modal-component">
       <div className="modal-body center-col">
         <h3>Are You Sure You Want to Leave The Current Game?</h3>
         <SoundButton

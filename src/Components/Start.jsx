@@ -3,7 +3,7 @@ import SoundButton from "./SoundButton";
 
 function Start({ startGame, soundEnabled }) {
   return (
-    <div className="large-text center-col">
+    <div className="large-text center-col" data-testid="start-component">
       <div>Test your knowledge of different subjects</div>
 
       <div>Press START to begin!</div>
