@@ -23,8 +23,8 @@ function Menu({
       <div className="menu-row flex-row">
         {gameState === "question" && (
           <>
-            <div>Score: {score}</div>
-            <div>Category: {category}</div>
+            <div data-testid="score">Score: {score}</div>
+            <div data-testid="category">Category: {category}</div>
           </>
         )}
       </div>
@@ -35,6 +35,7 @@ function Menu({
               soundEnabled={sound}
               onClick={handleNewGameClick}
               className="small-btn"
+              testID="new-game"
             >
               New Game
             </SoundButton>
@@ -42,6 +43,7 @@ function Menu({
               soundEnabled={sound}
               onClick={handleRestartClick}
               className="small-btn"
+              testID="restart"
             >
               Restart
             </SoundButton>
@@ -51,6 +53,7 @@ function Menu({
           className="toggle-sound-btn"
           aria-label={sound ? "Mute Sound" : "Unmute Sound"}
           onClick={toggleSound}
+          data-testid="sound"
         >
           {sound ? (
             <FaVolumeHigh className="regular-text" />
