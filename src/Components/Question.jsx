@@ -23,14 +23,6 @@ function Question({
   error,
   getNextQuestion,
 }) {
-  // Submits the answer, by updating isAnswering state, and calling verifyAnswer
-  // Only submits, if isAnswering state is true
-  function handleSubmit() {
-    if (!isAnswering) return;
-    setIsAnswering(false);
-    verifyAnswer(question.questionID, answer);
-  }
-
   // Adds selected class is current answer is the selected answer (answer == curAnswer)
   const selectedClass = (curAnswer) =>
     answer == curAnswer ? "selected-btn" : "";
@@ -102,7 +94,10 @@ function Question({
     goToSelectCategory,
     answerLoading,
     isCorrect,
-    handleSubmit,
+    setIsAnswering,
+    verifyAnswer,
+    question,
+    answer,
   };
 
   // Displays the question, the answer test, the answer choices,

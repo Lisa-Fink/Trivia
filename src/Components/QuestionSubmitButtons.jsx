@@ -12,8 +12,19 @@ function QuestionSubmitButtons({
   goToSelectCategory,
   answerLoading,
   isCorrect,
-  handleSubmit,
+  setIsAnswering,
+  verifyAnswer,
+  question,
+  answer,
 }) {
+  // Submits the answer, by updating isAnswering state, and calling verifyAnswer
+  // Only submits, if isAnswering state is true
+  function handleSubmit() {
+    if (!isAnswering) return;
+    setIsAnswering(false);
+    verifyAnswer(question.questionID, answer);
+  }
+
   const submitButton = (
     <SoundButton
       className="wide-btn"
