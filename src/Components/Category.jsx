@@ -1,7 +1,10 @@
 import React from "react";
 import SoundButton from "./SoundButton";
 
+// Displays the Category Selection Screen
+// Handles users clicking on category buttons, and submitting the category choice
 function Category({ category, setCategory, submitCategory, soundEnabled }) {
+  // Categories for the game, used to render category buttons
   const categories = [
     "Geography",
     "Movies",
@@ -12,37 +15,39 @@ function Category({ category, setCategory, submitCategory, soundEnabled }) {
   ];
 
   function handleSubmitCategory() {
-    if (category == null) {
-      // TODO: error message
-    } else {
-      submitCategory();
-    }
+    if (category) submitCategory();
   }
+
+  const categoryClass = (curCategory) =>
+    category == curCategory ? "selected-btn" : "";
 
   const categoryButtons = categories.map((curCategory, index) => (
     <SoundButton
       soundEnabled={soundEnabled}
-      className={category == curCategory ? "selected-btn" : ""}
+      className={categoryClass(curCategory)}
       key={index}
       onClick={() => setCategory(curCategory)}
     >
       {curCategory}
     </SoundButton>
   ));
+
+  const submitButton = (
+    <SoundButton
+      soundEnabled={soundEnabled}
+      className="wide-btn"
+      onClick={handleSubmitCategory}
+      testID="submit-btn"
+    >
+      Submit
+    </SoundButton>
+  );
+
   return (
     <div className="center-col" data-testid="category-component">
       <h1>Select a category to get started</h1>
       <div className="btn-container">{categoryButtons}</div>
-      <div>
-        <SoundButton
-          soundEnabled={soundEnabled}
-          className="wide-btn"
-          onClick={handleSubmitCategory}
-          testID="submit-btn"
-        >
-          Submit
-        </SoundButton>
-      </div>
+      <div>{submitButton}</div>
     </div>
   );
 }

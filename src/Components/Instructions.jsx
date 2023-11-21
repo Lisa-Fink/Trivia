@@ -1,5 +1,6 @@
 import React from "react";
 
+// Displays game instructions
 function Instructions() {
   return (
     <div className="regular-text instructions">

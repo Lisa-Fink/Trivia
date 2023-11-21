@@ -3,6 +3,7 @@ import useSound from "use-sound";
 import biteSfx from "../assets/bite.mp3";
 import popSfx from "../assets/pop.mp3";
 
+// Returns a button with sounds for mouseEnter/focus and click
 function SoundButton({
   children,
   onClick,
@@ -11,14 +12,15 @@ function SoundButton({
   soundEnabled,
   testID,
 }) {
-  const [play] = useSound(biteSfx, { soundEnabled });
+  // sets up sounds to variables (soundEnabled handles mute/unmute)
+  const [playHover] = useSound(biteSfx, { soundEnabled });
   const [playClick] = useSound(popSfx, { soundEnabled });
 
+  // attach all props to the button
   const buttonProps = {
-    onMouseEnter: play,
-    onFocus: play,
+    onMouseEnter: playHover,
+    onFocus: playHover,
   };
-
   buttonProps.onClick = () => {
     playClick();
     if (onClick) onClick();

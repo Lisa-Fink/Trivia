@@ -5,6 +5,8 @@ import Question from "./Question";
 import Menu from "./Menu";
 import ConfirmEndModal from "./ConfirmEndModal";
 
+// Displays the Trivia Game based on the game state
+// Handles changing the screen from start, category, and question
 function Play({
   gameState,
   setGameState,
@@ -17,49 +19,59 @@ function Play({
   setShowConfirm,
   questionProps,
 }) {
-  const main =
+  function submitCategory() {
+    setGameState("question");
+  }
+
+  function goToSelectCategory() {
+    setGameState("category");
+    setCategory(null);
+  }
+
+  function startGame() {
+    setGameState("category");
+  }
+
+  function cancelModal() {
+    setShowConfirm(null);
+  }
+
+  // Renders the component based on the gameState (category, question, or start)
+  const displayGameState =
     gameState === "category" ? (
       <Category
         category={category}
         setCategory={setCategory}
-        submitCategory={() => {
-          setGameState("question");
-        }}
+        submitCategory={submitCategory}
         soundEnabled={sound}
       />
     ) : gameState === "question" ? (
       <Question
-        goToSelectCategory={() => {
-          setGameState("category");
-          setCategory(null);
-        }}
+        goToSelectCategory={goToSelectCategory}
         setShowConfirm={setShowConfirm}
         soundEnabled={sound}
         {...questionProps}
       />
     ) : (
-      <Start
-        startGame={() => {
-          setGameState("category");
-        }}
-        soundEnabled={sound}
-      />
+      <Start startGame={startGame} soundEnabled={sound} />
     );
+
+  const menuProps = {
+    score,
+    category,
+    sound,
+    toggleSound,
+    gameState,
+    setShowConfirm,
+  };
 
   return (
     <>
-      <Menu
-        score={score}
-        category={category}
-        sound={sound}
-        toggleSound={toggleSound}
-        gameState={gameState}
-        setShowConfirm={setShowConfirm}
-      />
-      {main}
+      <Menu {...menuProps} />
+      {displayGameState}
       {showConfirm && (
         <ConfirmEndModal
-          cancel={() => setShowConfirm(null)}
+          cancel={cancelModal}
           endGame={showConfirm}
           setGameState={setGameState}
           soundEnabled={sound}
