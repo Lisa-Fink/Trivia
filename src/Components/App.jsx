@@ -1,16 +1,16 @@
-import "./App.css";
+import "../styles/App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./Components/Header";
-import Play from "./Components/Play";
-import Instructions from "./Components/Instructions";
+import Header from "./Header";
+import Play from "./Play";
+import Instructions from "./Instructions";
 
-import useQuestionData from "./Hooks/useQuestionData";
-import useAnswerVerification from "./Hooks/useAnswerVerification";
+import useQuestionData from "../Hooks/useQuestionData";
+import useAnswerVerification from "../Hooks/useAnswerVerification";
 
 import useSound from "use-sound";
-import correctSfx from "./assets/fanfare.mp3";
-import incorrectSfx from "./assets/dun-dun-dun.mp3";
+import correctSfx from "../assets/fanfare.mp3";
+import incorrectSfx from "../assets/dun-dun-dun.mp3";
 
 const CORRECT_ANSWER_POINTS = 100;
 
