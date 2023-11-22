@@ -1,6 +1,5 @@
 import { useState } from "react";
-import categoryToApiName from "./categoryToApiName";
-import { getRandomCategory } from "../utils/categories";
+import { getRandomCategory, categoryToApiName } from "../utils/categories";
 
 function useQuestionData() {
   const [question, setQuestion] = useState(null);

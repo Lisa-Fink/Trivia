@@ -1,19 +1,10 @@
 import React from "react";
 import SoundButton from "./SoundButton";
+import categories from "../utils/categories";
 
 // Displays the Category Selection Screen
 // Handles users clicking on category buttons, and submitting the category choice
 function Category({ category, setCategory, submitCategory, soundEnabled }) {
-  // Categories for the game, used to render category buttons
-  const categories = [
-    "Geography",
-    "Movies",
-    "Music",
-    "History",
-    "Science/Tech",
-    "Random",
-  ];
-
   function handleSubmitCategory() {
     if (category) submitCategory();
   }

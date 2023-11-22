@@ -1,5 +1,5 @@
 import { useState } from "react";
-import categoryToApiName from "./categoryToApiName";
+import { categoryToApiName } from "../utils/categories";
 
 function useAnswerVerification() {
   const [isCorrect, setIsCorrect] = useState(null);
