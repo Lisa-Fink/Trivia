@@ -1,10 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import ConfirmEndModal from "../Components/ConfirmEndModal";
+import wrapSoundContext from "../test-utils/wrapSoundContext";
 
 describe("Confirm End Modal test", () => {
   test("Should render modal with submit/cancel buttons", () => {
-    render(<ConfirmEndModal />);
+    render(wrapSoundContext(<ConfirmEndModal setShowConfirm={vi.fn()} />));
     const confirmBtn = screen.queryByTestId("confirm");
     const cancelBtn = screen.queryByTestId("cancel");
     expect(confirmBtn).not.toBeNull();
@@ -17,11 +18,13 @@ describe("Confirm End Modal test", () => {
     const setGameStateMock = vi.fn();
     const cancelMock = vi.fn();
     render(
-      <ConfirmEndModal
-        endGame={endGameMock}
-        setGameState={setGameStateMock}
-        cancel={cancelMock}
-      />
+      wrapSoundContext(
+        <ConfirmEndModal
+          endGame={endGameMock}
+          setGameState={setGameStateMock}
+          setShowConfirm={cancelMock}
+        />
+      )
     );
     const confirmBtn = screen.queryByTestId("confirm");
     fireEvent.click(confirmBtn);
@@ -32,7 +35,7 @@ describe("Confirm End Modal test", () => {
   });
   test("Should call cancel on cancel btn click", () => {
     const cancelMock = vi.fn();
-    render(<ConfirmEndModal cancel={cancelMock} />);
+    render(wrapSoundContext(<ConfirmEndModal setShowConfirm={cancelMock} />));
     const cancelBtn = screen.queryByTestId("cancel");
     fireEvent.click(cancelBtn);
     expect(cancelMock).toHaveBeenCalledOnce();

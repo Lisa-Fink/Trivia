@@ -1,15 +1,24 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { cleanup, render, screen, fireEvent } from "@testing-library/react";
 import Menu from "../Components/Menu";
+import wrapSoundContext from "../test-utils/wrapSoundContext";
 
 // game state == start: only show sound icon
 // game state == category: shows new game and restart btns. restart does nothing
 // game state == question: shows new game and restart btns, shows category and score
 // always show sound icon
 
+const gameData = {
+  score: 0,
+  category: "Music",
+  gameState: "start",
+  setShowConfirm: vi.fn(),
+};
+
 describe("Menu with start game state", () => {
   beforeEach(() => {
-    render(<Menu gameState="start" />);
+    gameData.gameState = "start";
+    render(wrapSoundContext(<Menu gameData={gameData} />));
   });
   test("Should show sound icon", () => {
     const sound = screen.queryByTestId("sound");
@@ -25,7 +34,8 @@ describe("Menu with start game state", () => {
 const testAllButtonsShow = (gameState) => {
   describe(`Buttons in Menu with ${gameState} game state`, () => {
     beforeEach(() => {
-      render(<Menu gameState={gameState} />);
+      gameData.gameState = gameState;
+      render(wrapSoundContext(<Menu gameData={gameData} />));
     });
 
     test("Should show sound icon and new game/reset game buttons", () => {
@@ -51,14 +61,18 @@ testAllButtonsShow("question");
 describe("Menu with question game state", () => {
   test("Should show score", () => {
     const mockScore = 500;
-    render(<Menu gameState="question" score={mockScore} />);
+    gameData.gameState = "question";
+    gameData.score = mockScore;
+    render(wrapSoundContext(<Menu gameData={gameData} />));
     const scoreElement = screen.queryByTestId("score");
     expect(scoreElement).not.toBeNull();
     expect(screen.getByText(`Score: ${mockScore}`)).toBeDefined();
   });
   test("Should show current category", () => {
     const testCategory = (mockCategory) => {
-      render(<Menu gameState="question" category={mockCategory} />);
+      gameData.gameState = "question";
+      gameData.category = mockCategory;
+      render(wrapSoundContext(<Menu gameData={gameData} />));
       const categoryElement = screen.queryByTestId("category");
       expect(categoryElement).not.toBeNull();
       expect(screen.getByText(`Category: ${mockCategory}`)).toBeDefined();
@@ -81,7 +95,7 @@ describe("Menu with question game state", () => {
 describe("Menu sound button", () => {
   test("Should change on click", () => {
     const mockToggleSound = vi.fn();
-    render(<Menu toggleSound={mockToggleSound} />);
+    render(wrapSoundContext(<Menu gameData={gameData} />, mockToggleSound));
     const sound = screen.queryByTestId("sound");
     fireEvent.click(sound);
     expect(mockToggleSound).toHaveBeenCalledOnce();

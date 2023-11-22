@@ -7,74 +7,43 @@ import ConfirmEndModal from "./ConfirmEndModal";
 
 // Displays the Trivia Game based on the game state
 // Handles changing the screen from start, category, and question
-function Play({
-  gameState,
-  setGameState,
-  sound,
-  toggleSound,
-  category,
-  setCategory,
-  score,
-  showConfirm,
-  setShowConfirm,
-  questionProps,
-}) {
-  function submitCategory() {
-    setGameState("question");
-  }
+function Play({ gameData, questionData, answerData }) {
+  const { gameState, setGameState, showConfirm, setShowConfirm } = gameData;
 
-  function goToSelectCategory() {
-    setGameState("category");
-    setCategory(null);
-  }
-
-  function startGame() {
-    setGameState("category");
-  }
-
-  function cancelModal() {
-    setShowConfirm(null);
-  }
+  const startGame = () => setGameState("category");
+  const afterSubmitChoices = {
+    goToSelectCategory: startGame,
+    setShowConfirm: setShowConfirm,
+    getNextQuestion: () => questionData.fetchQuestion(gameData.category),
+  };
 
   // Renders the component based on the gameState (category, question, or start)
   const displayGameState =
     gameState === "category" ? (
       <Category
-        category={category}
-        setCategory={setCategory}
-        submitCategory={submitCategory}
-        soundEnabled={sound}
+        category={gameData.category}
+        setCategory={gameData.setCategory}
+        setGameState={setGameState}
       />
     ) : gameState === "question" ? (
       <Question
-        goToSelectCategory={goToSelectCategory}
-        setShowConfirm={setShowConfirm}
-        soundEnabled={sound}
-        {...questionProps}
+        afterSubmitChoices={afterSubmitChoices}
+        questionData={questionData}
+        answerData={answerData}
       />
     ) : (
-      <Start startGame={startGame} soundEnabled={sound} />
+      <Start startGame={startGame} />
     );
-
-  const menuProps = {
-    score,
-    category,
-    sound,
-    toggleSound,
-    gameState,
-    setShowConfirm,
-  };
 
   return (
     <>
-      <Menu {...menuProps} />
+      <Menu gameData={gameData} />
       {displayGameState}
       {showConfirm && (
         <ConfirmEndModal
-          cancel={cancelModal}
           endGame={showConfirm}
+          setShowConfirm={setShowConfirm}
           setGameState={setGameState}
-          soundEnabled={sound}
         />
       )}
     </>

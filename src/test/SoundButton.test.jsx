@@ -1,18 +1,21 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import SoundButton from "../Components/SoundButton";
+import wrapSoundContext from "../test-utils/wrapSoundContext";
 
 describe("Button with children is rendered", () => {
   test("Should be rendered", () => {
-    render(<SoundButton />);
+    render(wrapSoundContext(<SoundButton />));
     const button = screen.queryByRole("button");
     expect(button).not.toBeNull();
   });
   test("Should render children", () => {
     render(
-      <SoundButton>
-        <span>Test Content</span>
-      </SoundButton>
+      wrapSoundContext(
+        <SoundButton>
+          <span>Test Content</span>
+        </SoundButton>
+      )
     );
     const child = screen.getByText("Test Content");
     expect(child).not.toBeNull();
@@ -25,11 +28,13 @@ describe("Button gets all props", () => {
     const mockDisabled = true;
     const mockTestID = "testID";
     render(
-      <SoundButton
-        className={mockClassName}
-        disabled={mockDisabled}
-        testID={mockTestID}
-      />
+      wrapSoundContext(
+        <SoundButton
+          className={mockClassName}
+          disabled={mockDisabled}
+          testID={mockTestID}
+        />
+      )
     );
   });
   test("Applies className prop", () => {

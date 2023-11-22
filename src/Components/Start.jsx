@@ -3,11 +3,10 @@ import SoundButton from "./SoundButton";
 
 // Displays the start screen
 // Handles users clicking a start game button
-function Start({ startGame, soundEnabled }) {
+function Start({ startGame }) {
   const startButton = (
     <SoundButton
       testID="start-button"
-      soundEnabled={soundEnabled}
       onClick={startGame}
       className="light-text medium-text"
     >

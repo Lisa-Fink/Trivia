@@ -4,17 +4,15 @@ import categories from "../utils/categories";
 
 // Displays the Category Selection Screen
 // Handles users clicking on category buttons, and submitting the category choice
-function Category({ category, setCategory, submitCategory, soundEnabled }) {
-  function handleSubmitCategory() {
-    if (category) submitCategory();
-  }
+function Category({ category, setCategory, setGameState }) {
+  const submitCategory = () => setGameState("question");
+  const handleSubmitCategory = () => category && submitCategory();
 
   const categoryClass = (curCategory) =>
     category == curCategory ? "selected-btn" : "";
 
   const categoryButtons = categories.map((curCategory, index) => (
     <SoundButton
-      soundEnabled={soundEnabled}
       className={categoryClass(curCategory)}
       key={index}
       onClick={() => setCategory(curCategory)}
@@ -25,7 +23,6 @@ function Category({ category, setCategory, submitCategory, soundEnabled }) {
 
   const submitButton = (
     <SoundButton
-      soundEnabled={soundEnabled}
       className="wide-btn"
       onClick={handleSubmitCategory}
       testID="submit-btn"

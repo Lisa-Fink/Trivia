@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaVolumeHigh, FaVolumeXmark } from "react-icons/fa6";
 import SoundButton from "./SoundButton";
+import { SoundContext } from "../Context/SoundContext";
 
 // Displays in game menu (displays score, category, new game button, reset game button)
 // Handles showing/not showing data (score/category) based on game state
 // Handles users clicking on new game and reset game buttons
-function Menu({
-  sound,
-  score,
-  category,
-  toggleSound,
-  gameState,
-  setShowConfirm,
-}) {
+function Menu({ gameData }) {
+  const { score, category, gameState, setShowConfirm } = gameData;
+  const { sound, toggleSound } = useContext(SoundContext);
   // Triggers the confirm a new game modal if the game state isn't start
   // (if game state is start, nothing would change)
   function handleNewGameClick() {
@@ -27,7 +23,6 @@ function Menu({
 
   const newGameButton = (
     <SoundButton
-      soundEnabled={sound}
       onClick={handleNewGameClick}
       className="small-btn"
       testID="new-game"
@@ -38,7 +33,6 @@ function Menu({
 
   const restartButton = (
     <SoundButton
-      soundEnabled={sound}
       onClick={handleRestartClick}
       className="small-btn"
       testID="restart"

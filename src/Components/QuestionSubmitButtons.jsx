@@ -4,23 +4,21 @@ import SoundButton from "./SoundButton";
 // Displays the submit buttons
 // Shows submit button if the answer is being chosen
 // Shows next screen buttons if answer was chosen based on correctness of answer
-function QuestionSubmitButtons({
-  isAnswering,
-  soundEnabled,
-  getNextQuestion,
-  setShowConfirm,
-  goToSelectCategory,
-  answerLoading,
-  isCorrect,
-  setIsAnswering,
-  verifyAnswer,
-  question,
-  answer,
-}) {
+function QuestionSubmitButtons({ answerData, question, afterSubmitChoices }) {
+  const {
+    isAnswering,
+    answerLoading,
+    isCorrect,
+    setIsAnswering,
+    verifyAnswer,
+    answer,
+  } = answerData;
+  const { goToSelectCategory, setShowConfirm, getNextQuestion } =
+    afterSubmitChoices;
   // Submits the answer, by updating isAnswering state, and calling verifyAnswer
   // Only submits, if isAnswering state is true
   function handleSubmit() {
-    if (!isAnswering) return;
+    if (!isAnswering || !answer) return;
     setIsAnswering(false);
     verifyAnswer(question.category, question.questionID, answer);
   }
@@ -30,25 +28,19 @@ function QuestionSubmitButtons({
       className="wide-btn"
       disabled={!isAnswering}
       onClick={handleSubmit}
-      soundEnabled={soundEnabled}
     >
       Submit
     </SoundButton>
   );
 
   const continueButton = (
-    <SoundButton
-      className="wide-btn"
-      onClick={getNextQuestion}
-      soundEnabled={soundEnabled}
-    >
+    <SoundButton className="wide-btn" onClick={getNextQuestion}>
       Continue
     </SoundButton>
   );
 
   const endGameButton = (
     <SoundButton
-      soundEnabled={soundEnabled}
       className="wide-btn"
       onClick={() => {
         setShowConfirm("start");
@@ -67,21 +59,13 @@ function QuestionSubmitButtons({
   );
 
   const retryButton = (
-    <SoundButton
-      soundEnabled={soundEnabled}
-      className="wide-btn"
-      onClick={getNextQuestion}
-    >
+    <SoundButton className="wide-btn" onClick={getNextQuestion}>
       Retry Current Category
     </SoundButton>
   );
 
   const newCategoryButton = (
-    <SoundButton
-      soundEnabled={soundEnabled}
-      className="wide-btn"
-      onClick={goToSelectCategory}
-    >
+    <SoundButton className="wide-btn" onClick={goToSelectCategory}>
       New Category
     </SoundButton>
   );

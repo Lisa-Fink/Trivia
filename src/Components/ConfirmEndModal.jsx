@@ -3,24 +3,22 @@ import SoundButton from "./SoundButton";
 
 // Displays the confirm end game modal
 // Handles users clicking to confirm or cancel
-function ConfirmEndModal({ endGame, cancel, setGameState, soundEnabled }) {
+function ConfirmEndModal({ endGame, setShowConfirm, setGameState }) {
+  const cancel = () => setShowConfirm(null);
+
   function handleConfirm() {
     setGameState(endGame);
     cancel();
   }
 
   const confirmBtn = (
-    <SoundButton
-      soundEnabled={soundEnabled}
-      onClick={handleConfirm}
-      testID="confirm"
-    >
+    <SoundButton onClick={handleConfirm} testID="confirm">
       Yes, Leave Current Game
     </SoundButton>
   );
 
   const cancelBtn = (
-    <SoundButton soundEnabled={soundEnabled} onClick={cancel} testID="cancel">
+    <SoundButton onClick={cancel} testID="cancel">
       No, Cancel
     </SoundButton>
   );

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { categoryToApiName } from "../utils/categories";
 
+// Handles verifying answers with api call, and
+// updating states related to verified answers
 function useAnswerVerification() {
   const [isCorrect, setIsCorrect] = useState(null);
   const [answerLoading, setAnswerLoading] = useState(false);
@@ -8,23 +10,25 @@ function useAnswerVerification() {
 
   const api_address = import.meta.env.VITE_API_ADDRESS;
 
+  const fetchAnswerData = async (category, questionID) => {
+    const startTime = Date.now();
+    const response = await fetch(
+      `${api_address}/${categoryToApiName[category]}/${questionID}/answer`
+    );
+    // waits at least 500 ms before continuing from api call
+    const timeTaken = Date.now() - startTime;
+    if (timeTaken < 500)
+      await new Promise((resolve) => setTimeout(resolve, 500 - timeTaken));
+    if (!response.ok) throw new Error("status: " + response);
+    return await response.json();
+  };
+
   // verifies an answer by making an api call using the category and questionID
   // compares the answer to the correct answer, and sets isCorrect accordingly
   const verifyAnswer = async (category, questionID, answer) => {
     setAnswerLoading(true);
     try {
-      const startTime = Date.now();
-      const response = await fetch(
-        `${api_address}/${categoryToApiName[category]}/${questionID}/answer`
-      );
-      // waits at least 500 ms before continuing from api call
-      const timeTaken = Date.now() - startTime;
-      if (timeTaken < 500)
-        await new Promise((resolve) => setTimeout(resolve, 500 - timeTaken));
-
-      setAnswerLoading(false);
-      if (!response.ok) throw new Error("status: " + response);
-      const data = await response.json();
+      const data = await fetchAnswerData(category, questionID);
       const correctAnswer = data.answer;
 
       // set isCorrect based on correctAnswer returned from api call
@@ -32,9 +36,9 @@ function useAnswerVerification() {
       else setIsCorrect(false);
       setCorrectAnswer(correctAnswer);
     } catch (error) {
-      console.error("handle fetch error", error);
-      // TODO: update state for error
+      setCorrectAnswer(null);
     }
+    setAnswerLoading(false);
   };
 
   // Reset answerState to null
