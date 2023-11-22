@@ -73,7 +73,14 @@ button {
   height: 100px;
   border: 2px var(--medium) solid;
 }
-
+.btn-container > button {
+  padding: 8px;
+  height: auto;
+  min-height: 100px;
+}
+.extra-text-container > button {
+  width: 600px;
+}
 .wide-btn {
   height: 80px;
   width: 800px;

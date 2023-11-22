@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SoundButton from "./SoundButton";
 import QuestionSubmitButtons from "./QuestionSubmitButtons";
+const LONG_TEXT_LENGTH = 65;
 
 // Displays the game screen for the question and answers based on the game state
 // Handles selecting different answer choices
@@ -23,6 +24,11 @@ function Question({
   error,
   getNextQuestion,
 }) {
+  const [isLongText, setIsLongText] = useState(false);
+  useEffect(() => {
+    setIsLongText(false);
+  }, [question]);
+
   // Adds selected class is current answer is the selected answer (answer == curAnswer)
   const selectedClass = (curAnswer) =>
     answer == curAnswer ? "selected-btn" : "";
@@ -37,6 +43,7 @@ function Question({
         ? " incorrect"
         : ""
       : "";
+
   // Selects the class/classes for the answer choice button
   const answerBtnClass = (curAnswer) =>
     selectedClass(curAnswer) + correctnessClass(curAnswer);
@@ -45,17 +52,21 @@ function Question({
   const answerChoiceButtons =
     question &&
     question.answers &&
-    question.answers.map((curAnswer, index) => (
-      <SoundButton
-        disabled={!isAnswering}
-        className={answerBtnClass(curAnswer)}
-        key={index}
-        onClick={() => setAnswer(curAnswer)}
-        soundEnabled={soundEnabled}
-      >
-        {curAnswer}
-      </SoundButton>
-    ));
+    question.answers.map((curAnswer, index) => {
+      if (!isLongText && curAnswer.length > LONG_TEXT_LENGTH)
+        setIsLongText(true);
+      return (
+        <SoundButton
+          disabled={!isAnswering}
+          className={answerBtnClass(curAnswer)}
+          key={index}
+          onClick={() => setAnswer(curAnswer)}
+          soundEnabled={soundEnabled}
+        >
+          {curAnswer}
+        </SoundButton>
+      );
+    });
 
   // Displays the text related to answer the question
   // If the player is answering: "Select and answer"
@@ -100,6 +111,12 @@ function Question({
     answer,
   };
 
+  // adds extra-text-container class.
+  // makes buttons wider if any answer choice has a long text
+  const containerClass = isLongText
+    ? "btn-container extra-text-container"
+    : "btn-container";
+
   // Displays the question, the answer test, the answer choices,
   // and the bottom buttons
   // (submit if answering or change game options after answer is checked)
@@ -110,7 +127,7 @@ function Question({
         <h3>{answerText}</h3>
       </div>
 
-      <div className="btn-container">{answerChoiceButtons}</div>
+      <div className={containerClass}>{answerChoiceButtons}</div>
       <QuestionSubmitButtons {...submitButtonProps} />
     </>
   );
