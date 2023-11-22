@@ -22,7 +22,7 @@ function QuestionSubmitButtons({
   function handleSubmit() {
     if (!isAnswering) return;
     setIsAnswering(false);
-    verifyAnswer(question.questionID, answer);
+    verifyAnswer(question.category, question.questionID, answer);
   }
 
   const submitButton = (
